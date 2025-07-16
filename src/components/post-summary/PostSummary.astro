@@ -1,0 +1,12 @@
+---
+import { getPosts } from '@/pages/posts/post.api';
+
+const posts = await getPosts();
+---
+
+<section>
+	<h1>Post Summary</h1>
+	<ul>
+		{posts.map((post) => <li>{post.title}</li>)}
+	</ul>
+</section>

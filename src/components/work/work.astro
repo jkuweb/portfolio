@@ -1,0 +1,11 @@
+---
+import { getWorks } from './work.api';
+
+const works = await getWorks();
+---
+
+<section>
+	<ul>
+		{works.map((work) => <li>{work.title}</li>)}
+	</ul>
+</section>

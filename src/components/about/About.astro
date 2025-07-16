@@ -1,0 +1,10 @@
+---
+import { getAbout } from './about.api';
+
+const about = await getAbout();
+---
+
+<section>
+	<h2>{about.title}</h2>
+	<p>{about.textBio}</p>
+</section>

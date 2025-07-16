@@ -1,0 +1,156 @@
+---
+
+---
+
+<header>
+	<div>
+		<a href="/">
+			<svg
+				width="76"
+				height="87"
+				viewBox="0 0 76 87"
+				fill="none"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<path
+					d="M38 3.23071L3 22.9743V63.3589L38 83.9999L73 64.2564V23.8717L38 3.23071Z"
+					fill="black"
+					stroke="black"
+					stroke-width="5"
+					stroke-linecap="round"
+					stroke-linejoin="round"></path>
+				<g clip-path="url(#clip0_2610_683)">
+					<path
+						d="M35.2711 59.3458C32.0834 59.3458 29.5562 58.4699 27.6895 56.7181C25.8516 54.9376 24.9326 52.554 24.9326 49.5673H30.3172C30.3172 51.1468 30.7624 52.3817 31.6526 53.2719C32.5429 54.1622 33.749 54.6073 35.2711 54.6073C36.7931 54.6073 37.9993 54.1766 38.8895 53.315C39.7798 52.4248 40.2249 51.1899 40.2249 49.6104V32.4227H32.9018V27.4258H45.6095V49.6104C45.6095 52.6258 44.6762 55.0094 42.8095 56.7612C40.9716 58.4842 38.4588 59.3458 35.2711 59.3458Z"
+						fill="#38FFA9"></path>
+				</g>
+				<defs>
+					<clipPath id="clip0_2610_683">
+						<rect
+							width="21.5385"
+							height="33.2051"
+							fill="white"
+							transform="translate(24.5381 26.5642)"></rect>
+					</clipPath>
+				</defs>
+				<use xlink:href="/"></use>
+			</svg>
+		</a>
+	</div>
+	<nav role="navigation" class="main-nav">
+		<div class="main-navigation">
+			<input type="checkbox" />
+			<span></span>
+			<span></span>
+			<span></span>
+			<ul class="navigation-list">
+				<li><a href="#about">01. About</a></li>
+				<li><a href="#experience">02. Experience</a></li>
+				<li><a href="#work">03. Work</a></li>
+				<li><a href="/posts">04. Blog</a></li>
+				<li><a href="#contact">05. Contact</a></li>
+			</ul>
+			<button>Resume</button>
+		</div>
+	</nav>
+</header>
+
+<style>
+	.main-navigation {
+		display: block;
+		position: relative;
+		top: 50px;
+		z-index: 1;
+		user-select: none;
+	}
+	.main-navigation a {
+		text-decoration: none;
+		color: #232323;
+		transition: all 0.3s ease;
+	}
+	.main-navigation a:hover {
+		color: tomato;
+	}
+	.main-navigation input {
+		display: block;
+		width: 40px;
+		height: 32px;
+		position: absolute;
+		top: -7px;
+		cursor: pointer;
+		opacity: 0;
+		z-index: 2;
+		-webkit-touch-callout: none;
+	}
+	.main-navigation span {
+		position: relative;
+		display: block;
+		width: 33px;
+		height: 4px;
+		margin-bottom: 5px;
+		position: relative;
+		background: #cdcdcd;
+		border-radius: 3px;
+		z-index: 1;
+		transform-origin: 4px 0px;
+		transition:
+			transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+			background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+			opacity 0.55s ease;
+	}
+	.main-navigation span:first-child {
+		transform-origin: 0% 0%;
+	}
+	.main-navigation span:nth-last-child(2) {
+		transform-origin: 0% 100%;
+	}
+
+	.main-navigation input:checked ~ span {
+		opacity: 1;
+		transform: rotate(45deg) translate(-2px, -1px);
+		background: #232323;
+	}
+	.main-navigation input:checked ~ span:nth-last-child(3) {
+		opacity: 0;
+		transform: rotate(0deg) scale(0.2, 0.2);
+	}
+	.main-navigation input:checked ~ span:nth-last-child(2) {
+		transform: rotate(-45deg) translate(0, -1px);
+	}
+	.main-navigation input:checked ~ .navigation-list {
+		transform: none;
+	}
+	.navigation-list {
+		position: absolute;
+		width: 300px;
+		padding: 50px;
+		padding-top: 125px;
+		background: #ededed;
+		list-style-type: none;
+		-webkit-font-smoothing: antialiased;
+		transform-origin: 0% 0%;
+		transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+	}
+	.navigation-list li {
+		padding: 10px 0;
+		font-size: 22px;
+	}
+	.main-nav .main-navigation {
+		position: fixed;
+		right: 0;
+	}
+	.main-nav .main-navigation input {
+		right: 50px;
+	}
+	.main-nav .main-navigation span {
+		right: 50px;
+	}
+	.main-nav .navigation-list {
+		right: 0;
+		margin: -100px 0 0 0;
+		transform: translate(100%, 0);
+	}
+	.main-nav .navigation-list li a:hover {
+		padding-left: 5px;
+	}
+</style>

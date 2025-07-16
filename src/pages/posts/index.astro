@@ -1,0 +1,26 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getPosts } from './post.api';
+
+const posts = await getPosts();
+
+const date = (date: string) =>
+	new Date(date).toLocaleDateString('es-Es', {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+	});
+---
+
+<Layout>
+	<h1>Blog</h1>
+	{
+		posts.map((post) => (
+			<>
+				<h1>{post.title}</h1>
+				<p>{date(post.date)}</p>
+				<a href={`/posts/${post.slug}`}>Link</a>
+			</>
+		))
+	}
+</Layout>

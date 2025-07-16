@@ -1,0 +1,11 @@
+---
+import { getExperience } from './experience.api,';
+
+const experience = await getExperience();
+---
+
+<section>
+	<ul>
+		{experience.map((exp) => <li>{exp.title}</li>)}
+	</ul>
+</section>

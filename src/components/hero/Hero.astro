@@ -1,0 +1,9 @@
+---
+import { getHero } from './hero.api';
+
+const hero = await getHero();
+---
+
+<section>
+	<h1>{hero.title}</h1>
+</section>
