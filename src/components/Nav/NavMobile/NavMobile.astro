@@ -1,0 +1,218 @@
+---
+
+---
+
+<nav id="mainNav" class="" role="navigation">
+	<div id="menuToggle" class="relative z-20 md:invisible">
+		<button
+			class="ham hamRotate"
+			aria-label="Abrir menú"
+			aria-expanded="false"
+			aria-controls="asideMenu"
+		>
+			<svg viewBox="0 0 100 100">
+				<path
+					class="line top"
+					d="m 30,33 h 40 c 3.722839,0 7.5,3.126468 7.5,8.578427 0,5.451959 -2.727029,8.421573 -7.5,8.421573 h -20"
+				></path>
+				<path class="line middle" d="m 30,50 h 40"></path>
+				<path
+					class="line bottom"
+					d="m 70,67 h -40 c 0,0 -7.5,-0.802118 -7.5,-8.365747 0,-7.563629 7.5,-8.634253 7.5,-8.634253 h 20"
+				></path>
+			</svg>
+		</button>
+	</div>
+	<aside
+		id="asideMenu"
+		class="hidden-menu"
+		role="dialog"
+		aria-modal="true"
+		aria-label="Menú de navegación"
+	>
+		<nav aria-label="Menú principal">
+			<ol>
+				<li><a href="/">Inicio</a></li>
+				<li><a href="/#about">Sobre mí</a></li>
+				<li><a href="/#experience">Experiencia</a></li>
+				<li><a href="/#examples">Ejemplos</a></li>
+				<li><a href="/#contact">Contacto</a></li>
+			</ol>
+		</nav>
+	</aside>
+</nav>
+
+<style>
+	svg {
+		width: 80px;
+	}
+	.ham {
+		cursor: pointer;
+		-webkit-tap-highlight-color: transparent;
+		transition: transform 400ms;
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+	.hamRotate.active {
+		transform: rotate(45deg);
+	}
+	.hamRotate180.active {
+		transform: rotate(180deg);
+	}
+	.line {
+		fill: none;
+		transition:
+			stroke-dasharray 400ms,
+			stroke-dashoffset 400ms;
+		stroke: var(--color-secondary);
+		stroke-width: 2.5;
+		stroke-linecap: round;
+	}
+	.ham .top {
+		stroke-dasharray: 40 160;
+	}
+	.ham .middle {
+		stroke-dasharray: 40 142;
+		transform-origin: 50%;
+		transition: transform 400ms;
+	}
+	.ham .bottom {
+		stroke-dasharray: 40 85;
+		transform-origin: 50%;
+		transition:
+			transform 400ms,
+			stroke-dashoffset 400ms;
+	}
+	.ham.active .top {
+		stroke-dashoffset: -64px;
+	}
+	.ham.active .middle {
+		transform: rotate(90deg);
+	}
+	.ham.active .bottom {
+		stroke-dashoffset: -64px;
+	}
+	.hidden-menu {
+		transform: translateX(100vw);
+		transition-property: all;
+		transition-duration: 0.25s;
+		transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+		visibility: hidden;
+		width: 0;
+		height: 0;
+		display: flex;
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		justify-content: center;
+		align-items: center;
+		padding: 50px 10px;
+		width: min(75vw, 400px);
+		height: 100vh;
+		outline: 0;
+		background-color: var(--light-navy);
+		& > nav {
+			display: flex;
+			flex-direction: column;
+			text-align: center;
+			width: 100%;
+			align-items: center;
+			justify-content: space-between;
+		}
+		& > nav > ol {
+			counter-reset: item;
+		}
+		& > nav > ol > li {
+			counter-increment: item;
+			margin: 0px auto 10px;
+		}
+		& > nav > ol > li:before {
+			content: '0' counter(item) '.';
+			display: block;
+			margin-bottom: 5px;
+			color: var(--color-secondary);
+		}
+		& > nav > ol > li > a {
+			padding: 3px 20px 20px;
+			color: var(--color-lightest-slate);
+		}
+	}
+	.visible-menu {
+		transform: translateX(0vw);
+		visibility: visible;
+		z-index: 9;
+	}
+</style>
+<script>
+	const menuToggle = document.querySelector('#menuToggle') as HTMLElement;
+	const ham = document.querySelector('.ham') as HTMLElement;
+	const asideMenu = document.querySelector('#asideMenu') as HTMLElement;
+	const overlay = document.querySelector('#overlay') as HTMLElement;
+	const announcer = document.getElementById('announcer');
+	const menuLinks = asideMenu?.querySelectorAll('a');
+	const firstMenuLink = menuLinks?.[0] as HTMLElement;
+
+	function openMenu() {
+		ham?.classList.add('active');
+		asideMenu?.classList.add('visible-menu');
+		overlay.classList.add('blur-effect');
+		menuToggle.setAttribute('aria-expanded', 'true');
+		firstMenuLink?.focus();
+		document.body.style.overflow = 'hidden';
+		announcer?.setAttribute(
+			'data-announce',
+			'Menú abierto. Navegación por pestañas.',
+		);
+	}
+
+	function closeMenu() {
+		asideMenu?.classList.remove('visible-menu');
+		ham.classList.remove('active');
+		overlay.classList.remove('blur-effect');
+		menuToggle.setAttribute('aria-expanded', 'false');
+		menuToggle.focus();
+		document.body.style.overflow = '';
+		announcer?.setAttribute('data-announce', 'Menú cerrado.');
+	}
+
+	menuToggle?.addEventListener('click', () => {
+		const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+		if (isExpanded) {
+			closeMenu();
+		} else {
+			openMenu();
+		}
+	});
+
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && asideMenu?.classList.contains('visible-menu')) {
+			closeMenu();
+		}
+	});
+
+	asideMenu?.addEventListener('keydown', (e) => {
+		if (e.key === 'Tab' && asideMenu?.classList.contains('visible-menu')) {
+			const focusableElements =
+				asideMenu.querySelectorAll<HTMLElement>('a, button');
+			const firstElement = focusableElements[0];
+			const lastElement = focusableElements[focusableElements.length - 1];
+
+			if (e.shiftKey && document.activeElement === firstElement) {
+				e.preventDefault();
+				lastElement?.focus();
+			} else if (!e.shiftKey && document.activeElement === lastElement) {
+				e.preventDefault();
+				firstElement?.focus();
+			}
+		}
+	});
+
+	menuLinks?.forEach((link) => {
+		link.addEventListener('click', closeMenu);
+	});
+
+	overlay.addEventListener('click', closeMenu);
+</script>

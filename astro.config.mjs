@@ -1,11 +1,17 @@
 // @ts-check
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig, envField } from 'astro/config';
+import { fileURLToPath } from 'url';
 
 // https://astro.build/config
 export default defineConfig({
 	vite: {
 		plugins: [tailwindcss()],
+		resolve: {
+			alias: {
+				'@': fileURLToPath(new URL('./src', import.meta.url)),
+			},
+		},
 	},
 	env: {
 		schema: {

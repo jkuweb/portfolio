@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+<symbol
+	xmlns="http://www.w3.org/2000/svg"
+	id="github"
+	role="img"
+	viewBox="0 0 24 24"
+	fill="none"
+	stroke="currentColor"
+	stroke-width="2"
+	stroke-linecap="round"
+	stroke-linejoin="round"
+	class="feather feather-github"
+	><title>GitHub</title><path
+		d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+	></path></symbol
+>
+
+<symbol
+	xmlns="http://www.w3.org/2000/svg"
+	id="instagram"
+	role="img"
+	viewBox="0 0 24 24"
+	fill="none"
+	stroke="currentColor"
+	stroke-width="2"
+	stroke-linecap="round"
+	stroke-linejoin="round"
+	class="feather feather-instagram"
+	><title>Instagram</title><rect
+		x="2"
+		y="2"
+		width="20"
+		height="20"
+		rx="5"
+		ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+	></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></symbol
+>
+
+
+<symbol id="twitter" viewBox="0 0 72 65" fill="currentColor" xmlns="http://www.w3.org/2000/svg" ><title>X</title>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M22.6891 0H0L26.9014 35.3477L1.72089 65H13.355L32.3999 42.5731L49.3109 64.794H72L44.317 28.4191L44.366 28.4818L68.2015 0.412927H56.5674L38.8667 21.2573L22.6891 0ZM12.524 6.19052H19.5874L59.476 58.603H52.4126L12.524 6.19052Z" fill="currentColor"/>
+</symbol>
+
+<symbol
+	xmlns="http://www.w3.org/2000/svg"
+	id="linkedIn"
+	role="img"
+	viewBox="0 0 24 24"
+	fill="none"
+	stroke="currentColor"
+	stroke-width="2"
+	stroke-linecap="round"
+	stroke-linejoin="round"
+	class="feather feather-linkedin"
+	><title>LinkedIn</title><path
+		d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+	></path><rect x="2" y="9" width="4" height="12"></rect><circle
+		cx="4"
+		cy="4"
+		r="2"></circle></symbol
+>
+<symbol id="page" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="12" cy="12" r="8" stroke="currentColor"/>
+<path d="M18.2075 6.78485C17.4747 7.46088 16.5544 8.00912 15.5106 8.39144C14.4668 8.77376 13.3244 8.981 12.163 8.99875C11.0016 9.01651 9.84894 8.84434 8.7852 8.49423C7.72146 8.14412 6.77215 7.62447 6.00325 6.97139" stroke="#222222"/>
+<path d="M18.3222 17.3235C17.5826 16.608 16.6367 16.0274 15.5553 15.6251C14.474 15.2227 13.2853 15.0091 12.0783 15.0003C10.8713 14.9914 9.67723 15.1875 8.58561 15.5739C7.494 15.9603 6.53311 16.5269 5.77495 17.2314" stroke="#222222"/>
+<path d="M12 4V20" stroke="currentColor"/>
+<path d="M20 12H4" stroke="currentColor"/>
+</symbol>
+</svg>

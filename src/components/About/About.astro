@@ -1,0 +1,83 @@
+---
+import { getAbout } from './about.api';
+import { formatInfo } from '@/utils/formatInfo';
+import SectionTitle from '../SectionTitle/SectionTitle.astro';
+
+const about = await getAbout();
+const technologies = about.technologies;
+---
+
+<section class="about py-15 sm:px-20 md:py-25" id="about">
+	<SectionTitle title={about.title} />
+	<div class="md:grid md:grid-cols-[3fr_2fr] md:gap-12.5">
+		<div>
+			<div class="about-content" set:html={formatInfo(about.textBio)} />
+			<ul class="technology-list mt-5">
+				{
+					technologies &&
+						technologies.map((technologie) => (
+							<li class="relative flex items-center pb-2.5 pl-5">
+								{technologie}
+							</li>
+						))
+				}
+			</ul>
+		</div>
+		<div class="about-image my-12.5 max-w-75 md:my-0 md:self-start">
+			<img src={about.picture.url} alt={about.picture.name} />
+		</div>
+	</div>
+</section>
+<style>
+	.about-content p {
+		margin-bottom: 1rem;
+	}
+	.technology-list {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(140px, 200px));
+		gap: 0 10px;
+		& > li::before {
+			content: '▹';
+			position: absolute;
+			left: 0px;
+			color: var(--color-secondary);
+			font-size: 14px;
+			line-height: 12px;
+		}
+	}
+	.about-image {
+		box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+		display: block;
+		position: relative;
+		width: 100%;
+		border-radius: 4px;
+		background-color: var(--color-secondary);
+		filter: grayscale(100%) contrast(1);
+		& > img {
+			position: relative;
+			border-radius: 4px;
+			filter: grayscale(100%) contrast(1);
+			mix-blend-mode: multiply;
+		}
+		&::before {
+			content: '';
+			display: block;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			border-radius: 4px;
+		}
+		&::after {
+			content: '';
+			display: block;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			border-radius: 4px;
+			border: 2px solid var(--color-secondary);
+			top: 14px;
+			left: 14px;
+			z-index: -1;
+		}
+	}
+</style>

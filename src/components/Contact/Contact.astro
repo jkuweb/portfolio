@@ -1,0 +1,22 @@
+---
+import Button from '../Button/Button.astro';
+import SectionTitle from '../SectionTitle/SectionTitle.astro';
+---
+
+<section class="py-15 sm:px-20 md:py-25" id="contact">
+	<SectionTitle title="Contacto" />
+	<div class="mb-10 max-w-148">
+		<p class="mb-8! max-w-[60ch]">
+			Si quieres ponerte en contacto para colaborar, proponer un proyecto o
+			pedir más información, no dudes en escribirme.
+		</p>
+		<p>Estaré encantado de responderte 👋</p>
+	</div>
+	<div class="">
+		<Button
+			text="Say Hello"
+			url="mailto:josebaquerejetaweb@gmail.com"
+			classRules="px-[0.75rem] py-4"
+		/>
+	</div>
+</section>

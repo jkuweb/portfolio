@@ -1,0 +1,103 @@
+---
+
+---
+
+<div
+	id="loader"
+	class="bg-primary text-lightest-slate fixed inset-0 z-9999 flex flex-col items-center justify-center"
+	role="status"
+	aria-live="polite"
+	aria-label="Cargando página"
+>
+	<svg
+		width="80"
+		height="90"
+		viewBox="0 0 76 87"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		class="loader-hex"
+		aria-hidden="true"
+	>
+		<path
+			class="hex-border"
+			d="M38 3.23071L3 22.9743V63.3589L38 83.9999L73 64.2564V23.8717L38 3.23071Z"
+			fill="transparent"
+			stroke="var(--color-secondary)"
+			stroke-width="5"
+			stroke-linecap="round"
+			stroke-linejoin="round"></path>
+		<g class="hex-letter" clip-path="url(#clip0_loading)">
+			<path
+				d="M35.2711 59.3458C32.0834 59.3458 29.5562 58.4699 27.6895 56.7181C25.8516 54.9376 24.9326 52.554 24.9326 49.5673H30.3172C30.3172 51.1468 30.7624 52.3817 31.6526 53.2719C32.5429 54.1622 33.749 54.6073 35.2711 54.6073C36.7931 54.6073 37.9993 54.1766 38.8895 53.315C39.7798 52.4248 40.2249 51.1899 40.2249 49.6104V32.4227H32.9018V27.4258H45.6095V49.6104C45.6095 52.6258 44.6762 55.0094 42.8095 56.7612C40.9716 58.4842 38.4588 59.3458 35.2711 59.3458Z"
+				fill="#38FFA9"></path>
+		</g>
+		<defs>
+			<clipPath id="clip0_loading">
+				<rect
+					width="21.5385"
+					height="33.2051"
+					fill="white"
+					transform="translate(24.5381 26.5642)"></rect>
+			</clipPath>
+		</defs>
+	</svg>
+	<span class="sr-only">josebaquerejeta.com</span>
+</div>
+
+<style>
+	.loader-hex {
+		overflow: visible;
+	}
+
+	.hex-border {
+		stroke-dasharray: 280;
+		stroke-dashoffset: 280;
+		animation:
+			drawBorder 1.2s ease-out forwards,
+			fillBorder 0.3s ease-out 1.2s forwards;
+	}
+
+	.hex-letter {
+		opacity: 0;
+		animation: fadeInLetter 0.5s ease-out 1.5s forwards;
+	}
+
+	.loader-text {
+		opacity: 0;
+		animation: fadeInText 0.5s ease-out 2s forwards;
+	}
+
+	@keyframes drawBorder {
+		to {
+			stroke-dashoffset: 0;
+		}
+	}
+
+	@keyframes fillBorder {
+		to {
+			fill: var(--color-primary);
+		}
+	}
+
+	@keyframes fadeInLetter {
+		to {
+			opacity: 1;
+		}
+	}
+
+	@keyframes fadeInText {
+		to {
+			opacity: 1;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hex-border,
+		.hex-letter,
+		.loader-text {
+			animation: none;
+			stroke-dashoffset: 0;
+			opacity: 1;
+		}
+	}
+</style>

@@ -1,0 +1,26 @@
+---
+import { getWorks } from './work.api';
+import WorkItem from './WorkItem.astro';
+
+import type { WorkWithItems } from './work.model';
+import SectionTitle from '../SectionTitle/SectionTitle.astro';
+
+const works: WorkWithItems[] = await getWorks();
+---
+
+<section
+	class="work max-w-5xl! py-15 sm:px-20 md:py-25"
+	id="work-section"
+	id="examples"
+>
+	<SectionTitle title="Algunas cosas que he construido" />
+	<ul>
+		{
+			works.map((work) =>
+				work.singleWorkData.map((item, i) => (
+					<WorkItem item={item} index={i} />
+				)),
+			)
+		}
+	</ul>
+</section>

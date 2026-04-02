@@ -1,0 +1,207 @@
+---
+interface Props {
+	index: number;
+	item: {
+		title: string;
+		link: string;
+		repo: string;
+		info: string;
+		image: { url: string };
+		technologies: string[];
+	};
+}
+
+const { index, item } = Astro.props;
+const isEven = index % 2 === 0;
+
+const gridClasses = {
+	image: isEven ? 'md:col-[1/7]' : 'md:col-[7/-1] relative',
+	content: isEven ? 'md:col-[5/-1]' : 'md:col-[1/8]',
+	align: isEven
+		? 'md:text-right md:max-w-full md:justify-end md:m-0'
+		: 'md:text-left',
+	links: isEven ? 'md:justify-self-end' : 'md:justify-self-start',
+};
+
+const githubIcon = `<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 hover:stroke-secondary ease-in-out duration-300 cursor-pointer"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>`;
+
+const externalLinkIcon = `<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 hover:stroke-secondary ease-in-out duration-300 cursor-pointer"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>`;
+---
+
+<li class="mb-16 md:mb-40 md:grid md:grid-cols-12 md:gap-2.5">
+	<div class={`proyect-content mb-8 md:row-span-full ${gridClasses.content}`}>
+		<div>
+			<p class={`text-secondary my-2.5 text-sm ${gridClasses.align}`}>
+				Sitio Web
+			</p>
+			<h3 class={`mb-2.5 md:mb-4 ${gridClasses.align}`}>
+				<a href={item.link} rel="noopener noreferrer" target="_blank">
+					{item.title}
+				</a>
+			</h3>
+			<div
+				class={`py-5 md:relative md:z-10 md:mb-4 md:grid md:min-h-56 md:place-items-center md:bg-[#112240] md:p-5 lg:mb-0 ${gridClasses.align}`}
+			>
+				{item.info}
+				<div
+					class={`flex my-6 gap-4 md:grid md:grid-cols-2 md:my-0 ${gridClasses.links} self-end`}
+				>
+					<a
+						href={item.repo}
+						aria-label="GitHub Link"
+						rel="noopener noreferrer"
+						target="_blank"
+					>
+						<Fragment set:html={githubIcon} />
+					</a>
+					<a
+						href={item.link}
+						aria-label="External Link"
+						rel="noopene noreferrer"
+						target="_blank"
+					>
+						<Fragment set:html={externalLinkIcon} />
+					</a>
+				</div>
+			</div>
+			<ul
+				class={`flex max-w-100 justify-evenly text-sm md:relative md:top-11.25 ${gridClasses.align}`}
+			>
+				{item.technologies.map((tech) => <li class="tech-tag">{tech}</li>)}
+			</ul>
+		</div>
+	</div>
+	<div class={`project-image md:row-span-full ${gridClasses.image}`}>
+		<a href={item.link} rel="noopener noreferrer" target="_blank">
+			<img aria-hidden="true" decoding="async" src={item.image.url} alt="" />
+		</a>
+	</div>
+</li>
+
+<style>
+	.project-image {
+		position: relative;
+	}
+
+	.project-image::before,
+	.project-image::after {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+
+	@media screen and (min-width: 48rem) {
+		.project-image > a::before {
+			content: '';
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			inset: 0px;
+			z-index: 3;
+			background-color: var(--navy);
+			transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+			mix-blend-mode: color;
+		}
+		.project-image:hover > a::before {
+			background-color: transparent;
+		}
+	}
+
+	.project-image {
+		width: 100%;
+		max-width: 600px;
+		margin: auto;
+		box-shadow: inset 0 0 0 1px rgba(105, 202, 98, 0.5);
+	}
+
+	.project-image::before,
+	.project-image::after {
+		content: '';
+		z-index: -1;
+		margin: -3%;
+		box-shadow: inset 0 0 0 2px;
+		animation: clipMe 8s linear;
+		animation-play-state: paused;
+		opacity: 1;
+	}
+
+	.project-image.animated::before,
+	.project-image.animated::after {
+		animation-play-state: running;
+	}
+
+	.project-image::before {
+		animation-delay: -4s;
+	}
+
+	.project-image.hide-border::before,
+	.project-image.hide-border::after {
+		opacity: 0;
+		animation: none !important;
+	}
+
+	.project-image:hover::after,
+	.project-image:hover::before {
+	}
+
+	@keyframes clipMe {
+		0%,
+		100% {
+			clip-path: inset(0 0 calc(100% - 3px) 0);
+		}
+		25% {
+			clip-path: inset(0 calc(100% - 3px) 0 0);
+		}
+		50% {
+			clip-path: inset(calc(100% - 3px) 0 0 0);
+		}
+		75% {
+			clip-path: inset(0 0 0 calc(100% - 3px));
+		}
+	}
+
+	.project-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.tech-tag {
+		background-color: rgba(136, 146, 176, 0.16);
+		clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+		padding: 1rem;
+		width: 6rem;
+		height: 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+</style>
+<script>
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (
+					entry.isIntersecting &&
+					!entry.target.classList.contains('animated')
+				) {
+					entry.target.classList.add('animated');
+					entry.target.addEventListener(
+						'animationend',
+						() => {
+							entry.target.classList.add('hide-border');
+						},
+						{ once: true },
+					);
+				}
+			});
+		},
+		{ threshold: 0.1 },
+	);
+
+	document.querySelectorAll('.project-image').forEach((el) => {
+		observer.observe(el);
+	});
+</script>

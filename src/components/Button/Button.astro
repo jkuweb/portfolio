@@ -1,0 +1,34 @@
+---
+interface Props {
+	url: string;
+	text: string;
+	classRules?: string;
+	svg?: string;
+	target?: string;
+}
+
+const { url, text, classRules, svg, target } = Astro.props;
+const hasSvg = svg !== undefined;
+const styleWithSvg = hasSvg ? '!flex items-center gap-2' : undefined;
+---
+
+<a
+	href={url}
+	target={target}
+	class={`${classRules} text-secondary leading-none rounded-sm border border-secondary bg-transparent ${styleWithSvg}`}
+>
+	<span>
+		{text}
+	</span>
+	{svg && <Fragment set:html={svg} />}
+</a>
+<style>
+	a {
+		transition: var(--smooth-animation);
+		&:hover {
+			outline: none;
+			box-shadow: 3px 3px 0 0 var(--color-secondary);
+			transform: translate(-4px, -4px);
+		}
+	}
+</style>

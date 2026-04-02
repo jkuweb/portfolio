@@ -1,0 +1,145 @@
+---
+import { getExperience } from './experience.api';
+import { formatInfo } from '@/utils/formatInfo';
+import { formatDateRange } from '@/utils/formatDate';
+import SectionTitle from '../SectionTitle/SectionTitle.astro';
+
+const experience = await getExperience();
+const empresas = experience.flatMap((exp) => exp.empresaData ?? []);
+---
+
+<section class="py-15 sm:px-20 md:py-25" id="experience">
+	<SectionTitle title="Experiencia" />
+	<div class="tab-group relative flex flex-col md:flex-row">
+		<div
+			class="tab-list md:border-lightest-navy relative flex w-full overflow-scroll overflow-x-visible border-b border-stone-200 md:h-full md:w-auto md:shrink-0 md:flex-col md:border-b-0 md:border-l md:pl-0"
+			role="tablist"
+		>
+			{
+				empresas.map((empresa, index) => (
+					<button
+						class={`tab-link relative px-5 py-3 text-left text-sm leading-tight font-normal whitespace-nowrap transition-all duration-300 md:relative md:-left-px ${
+							index === 0
+								? 'text-secondary md:border-secondary font-medium md:border-l-2 md:pl-4.5'
+								: 'text-slate hover:text-slate-light'
+						}`}
+						data-dui-tab-target={`tab-${index}`}
+					>
+						{empresa.name}
+					</button>
+				))
+			}
+		</div>
+		<div
+			class="tab-content-container mt-6 ml-0 min-h-120 md:mt-0 md:ml-8 md:flex-1"
+		>
+			{
+				empresas.map((empresa, index) => (
+					<div
+						id={`tab-${index}`}
+						class={`tab-content text-slate text-base ${index === 0 ? 'block' : 'hidden'}`}
+					>
+						<h4 class="text-slate text-xl font-medium">
+							<a
+								href={empresa.url}
+								rel="noopener noreferrer"
+								target="_blank"
+								class="text-secondary hover:text-secondary/80 transition-colors duration-300"
+							>
+								{empresa.name}
+							</a>
+						</h4>
+						<p class="text-xs">
+							{formatDateRange(empresa.initialDate, empresa.endDate)}
+						</p>
+						{empresa.info && (
+							<div class="mt-1" set:html={formatInfo(empresa.info)} />
+						)}
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.tab-content :global(ul) {
+		list-style: none;
+		padding-left: 0;
+		margin-bottom: 3rem;
+	}
+	.tab-content :global(ul:last-child) {
+		margin-bottom: 0;
+	}
+	.tab-content :global(li) {
+		position: relative;
+		margin-bottom: 0.5rem;
+		padding-left: 1.25rem;
+	}
+	.tab-content :global(li::before) {
+		content: '▹';
+		color: var(--color-secondary);
+		position: absolute;
+		left: 0;
+	}
+	.tab-content :global(h3) {
+		margin-bottom: 1rem;
+	}
+</style>
+
+<script>
+	document.querySelectorAll('.tab-group').forEach((group) => {
+		const tabs = group.querySelectorAll('.tab-link');
+		const contents = group.querySelectorAll('.tab-content');
+
+		const isMobile = () => window.innerWidth < 768;
+
+		tabs.forEach((tab) => {
+			tab.addEventListener('click', () => {
+				const targetId = tab.getAttribute('data-dui-tab-target');
+				const mobile = isMobile();
+
+				tabs.forEach((t) => {
+					t.classList.remove('text-secondary', 'font-medium');
+					t.classList.add('text-slate');
+					t.classList.remove(
+						'md:border-l-2',
+						'md:border-secondary',
+						'md:pl-[18px]',
+					);
+				});
+
+				contents.forEach((c) => {
+					c.classList.add('hidden');
+					c.classList.remove('block');
+				});
+
+				tab.classList.add('text-secondary', 'font-medium');
+				tab.classList.remove('text-slate');
+				if (!mobile) {
+					tab.classList.add(
+						'md:border-l-2',
+						'md:border-secondary',
+						'md:pl-[18px]',
+					);
+				}
+
+				const targetContent = group.querySelector(`#${targetId}`);
+				if (targetContent) {
+					targetContent.classList.remove('hidden');
+					targetContent.classList.add('block');
+				}
+			});
+		});
+
+		window.addEventListener('resize', () => {
+			const activeTab = group.querySelector('.tab-link.text-secondary');
+			if (activeTab) {
+				const mobile = isMobile();
+				activeTab.classList.toggle('md:border-l-2', !mobile);
+				activeTab.classList.toggle('md:border-secondary', !mobile);
+				activeTab.classList.toggle('md:-ml-[2px]', !mobile);
+			}
+		});
+	});
+</script>
