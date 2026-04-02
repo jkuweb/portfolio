@@ -1,0 +1,136 @@
+---
+
+---
+
+<div
+	class="social-side fixed right-auto bottom-0 left-10 z-10 hidden w-10 md:block"
+>
+	<ul
+		class="after:bg-slate mx-auto my-0 flex flex-col items-center gap-[0.4rem] after:block after:h-32 after:w-px"
+	>
+		<li class="social-icon cursor-pointer">
+			<a
+				href="https://github.com/jkuweb"
+				aria-label="GitHub"
+				target="_blank"
+				rel="noreferrer"
+				class="p-2.5 [transition:var(--smooth-animation)] hover:-translate-y-1"
+			>
+				<svg aria-hidden="true" width="24" height="24">
+					<use xlink:href="/sprite.svg#github"> </use>
+				</svg></a
+			>
+		</li><li class="social-icon cursor-pointer">
+			<a
+				href="https://www.instagram.com/joseba_querejeta/"
+				aria-label="Instagram"
+				target="_blank"
+				rel="noreferrer"
+				class="p-2.5 [transition:var(--smooth-animation)] hover:-translate-y-1"
+			>
+				<svg aria-hidden="true" width="24" height="24">
+					<use xlink:href="/sprite.svg#instagram"> </use>
+				</svg></a
+			>
+		</li><li class="social-icon cursor-pointer">
+			<a
+				href="https://x.com/joquerejeta"
+				aria-label="Twitter"
+				target="_blank"
+				rel="noreferrer"
+				class="p-2.5 [transition:var(--smooth-animation)] hover:-translate-y-1"
+			>
+				<svg aria-hidden="true" width="24" height="24">
+					<use xlink:href="/sprite.svg#twitter"> </use>
+				</svg>
+			</a>
+		</li><li class="social-icon cursor-pointer">
+			<a
+				href="https://www.linkedin.com/in/joseba-querejeta-urteaga/"
+				aria-label="Linkedin"
+				target="_blank"
+				rel="noreferrer"
+				class="p-2.5 [transition:var(--smooth-animation)] hover:-translate-y-1"
+			>
+				<svg aria-hidden="true" width="24" height="24">
+					<use xlink:href="/sprite.svg#linkedIn"></use>
+				</svg>
+			</a>
+		</li><li class="social-icon cursor-pointer">
+			<a
+				href="#"
+				aria-label="Web agencia"
+				target="_blank"
+				rel="noreferrer"
+				class="p-2.5 [transition:var(--smooth-animation)] hover:-translate-y-1 hover:bg-(--color)"
+			>
+				<svg aria-hidden="true" width="24" height="24">
+					<use xlink:href="/sprite.svg#page"></use>
+				</svg>
+			</a>
+		</li>
+	</ul>
+</div>
+<div class="email-side right-10 bottom-0 z-10 hidden w-10 md:fixed md:block">
+	<div
+		class="after:bg-slate flex flex-col items-center after:h-22.5 after:w-px"
+	>
+		<a
+			href="mailto:contacto@josebaquerejeta.com"
+			aria-label="Enviar email a contacto@josebaquerejeta.com"
+			class="writing-sideways-rl mx-5 my-auto p-2.5 tracking-wider transition-(--smooth-animation) hover:-translate-y-1"
+			>contacto@josebaquerejeta.com</a
+		>
+	</div>
+</div>
+
+<style>
+	.social-side,
+	.email-side {
+		opacity: 0;
+	}
+
+	body.loaded .social-side {
+		animation: fade-up 0.6s cubic-bezier(0.645, 0.045, 0.355, 1) 0.7s forwards;
+	}
+
+	body.loaded .email-side {
+		animation: fade-up 0.6s cubic-bezier(0.645, 0.045, 0.355, 1) 0.8s forwards;
+	}
+
+	body.loaded .social-icon {
+		opacity: 0;
+		animation: fade-up 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+	}
+
+	body.loaded .social-icon:nth-child(1) {
+		animation-delay: 0.7s;
+	}
+
+	body.loaded .social-icon:nth-child(2) {
+		animation-delay: 0.8s;
+	}
+
+	body.loaded .social-icon:nth-child(3) {
+		animation-delay: 0.9s;
+	}
+
+	body.loaded .social-icon:nth-child(4) {
+		animation-delay: 1s;
+	}
+
+	body.loaded .social-icon:nth-child(5) {
+		animation-delay: 1.1s;
+	}
+
+	@keyframes fade-up {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+</style>

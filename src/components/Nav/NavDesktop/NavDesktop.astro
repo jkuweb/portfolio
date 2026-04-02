@@ -1,0 +1,84 @@
+---
+
+---
+
+<nav class="hidden items-center md:flex" aria-label="Navegación principal">
+	<ol class="flex">
+		<li class="nav-item">
+			<a class="flex items-center p-2.5" href="/">Inicio</a>
+		</li>
+		<li class="nav-item">
+			<a class="flex items-center p-2.5" href="/#about">Sobre-mí</a>
+		</li>
+		<li class="nav-item">
+			<a class="flex items-center p-2.5" href="/#experience">Experiencia</a>
+		</li>
+		<li class="nav-item">
+			<a class="flex items-center p-2.5" href="/#examples">Ejemplos</a>
+		</li>
+		<li class="nav-item">
+			<a class="flex items-center p-2.5" href="/#contact">Contacto</a>
+		</li>
+	</ol>
+</nav>
+<style>
+	nav {
+		& > ol {
+			counter-reset: item1;
+		}
+		& > ol > li {
+			counter-increment: item1;
+			margin-right: 5px;
+			& > a {
+				color: var(--color-lightest-slate);
+			}
+			& > a:hover {
+				color: var(--color-secondary);
+			}
+		}
+		& > ol > li > a:before {
+			content: '0' counter(item1) '.';
+			color: var(--color-secondary);
+			margin-right: 5px;
+		}
+	}
+
+	.nav-item {
+		opacity: 0;
+	}
+
+	body.loaded .nav-item {
+		animation: fade-up 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+	}
+
+	body.loaded .nav-item:nth-child(1) {
+		animation-delay: 0.15s;
+	}
+
+	body.loaded .nav-item:nth-child(2) {
+		animation-delay: 0.2s;
+	}
+
+	body.loaded .nav-item:nth-child(3) {
+		animation-delay: 0.25s;
+	}
+
+	body.loaded .nav-item:nth-child(4) {
+		animation-delay: 0.3s;
+	}
+
+	body.loaded .nav-item:nth-child(5) {
+		animation-delay: 0.35s;
+	}
+
+	@keyframes fade-up {
+		from {
+			opacity: 0;
+			transform: translateY(-10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+</style>

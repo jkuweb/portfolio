@@ -1,9 +1,69 @@
 ---
+import Button from '../Button/Button.astro';
 import { getHero } from './hero.api';
 
 const hero = await getHero();
+const { url } = Astro.props;
+const svg =
+	'<svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" viewBox="0 0 24 24"><path stroke="#36f1a4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 15c0 2.828 0 4.243.879 5.121C4.757 21 6.172 21 9 21h6c2.828 0 4.243 0 5.121-.879C21 19.243 21 17.828 21 15M12 3v13m0 0 4-4.375M12 16l-4-4.375"/></svg>';
 ---
 
-<section>
-	<h1>{hero.title}</h1>
+<section
+	class="max-w-section m-auto flex min-h-dvh flex-col items-start justify-center p-0 md:mx-37.5"
+>
+	<span class="hero-line text-secondary text-[clamp(14px,5vw,16px)] leading-6"
+		>Hola, mi nombre es</span
+	>
+	<h1 class="hero-line mt-2">{hero.title}</h1>
+	<h2
+		class="hero-line font-primary! mt-4 md:mt-4 md:mb-4 md:max-w-180 md:text-[2.5rem]! md:leading-[1.1]"
+	>
+		{hero.subTitle}
+	</h2>
+	<div class="hero-line">
+		<Button
+			url={url}
+			text={hero.link}
+			classRules="px-7 py-5 leading-3.5 mt-[50px]"
+			svg={svg}
+			target="_blank"
+		/>
+	</div>
 </section>
+
+<style>
+	.hero-line {
+		opacity: 0;
+	}
+
+	body.loaded .hero-line {
+		animation: fade-up 0.6s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+	}
+
+	body.loaded .hero-line:nth-child(1) {
+		animation-delay: 0.3s;
+	}
+
+	body.loaded .hero-line:nth-child(2) {
+		animation-delay: 0.4s;
+	}
+
+	body.loaded .hero-line:nth-child(3) {
+		animation-delay: 0.5s;
+	}
+
+	body.loaded .hero-line:nth-child(4) {
+		animation-delay: 0.6s;
+	}
+
+	@keyframes fade-up {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+</style>

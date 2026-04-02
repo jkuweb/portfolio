@@ -1,0 +1,36 @@
+---
+import Logo from '@/components/Logo/Logo.astro';
+import NavDesktop from '@/components/Nav/NavDesktop/NavDesktop.astro';
+import NavMobile from '@/components/Nav/NavMobile/NavMobile.astro';
+---
+
+<header
+	class="h-header fixed top-0 z-999 flex w-full items-center justify-between pl-6 backdrop-blur-md md:px-6"
+>
+	<Logo />
+	<NavMobile />
+	<NavDesktop />
+</header>
+
+<style>
+	header {
+		opacity: 0;
+		animation: fade-down 0.6s cubic-bezier(0.645, 0.045, 0.355, 1) 0.1s forwards;
+	}
+
+	body.loaded header {
+		opacity: 0;
+		animation: fade-down 0.6s cubic-bezier(0.645, 0.045, 0.355, 1) 0.1s forwards;
+	}
+
+	@keyframes fade-down {
+		from {
+			opacity: 0;
+			transform: translateY(-20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+</style>

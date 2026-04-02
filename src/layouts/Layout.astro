@@ -1,22 +1,112 @@
 ---
-import Footer from '@/components/Footer.astro';
-import Header from '@/components/Header.astro';
+import Header from '@/components/Header/Header.astro';
+import Footer from '@/components/Footer/Footer.astro';
+import SocialMedia from '@/components/SocialMedia/SocialMedia.astro';
+import Loader from '@/components/Loader/Loader.astro';
+import '@fontsource/space-mono/400.css';
+import '@fontsource/space-mono/700.css';
+import '@fontsource-variable/inter';
 import '../styles/global.css';
 ---
 
 <html lang="es">
 	<head>
 		<meta charset="utf-8" />
-		<!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro-Bolerplate</title>
+		<meta
+			name="description"
+			content="Portfolio personal de Joseba Querejeta - Desarrollador Web"
+		/>
+		<meta name="theme-color" content="#38ffa9" />
+		<title>Portfolio | Joseba Querejeta</title>
 	</head>
 	<body>
+		<div aria-live="polite" aria-atomic="true" class="sr-only" id="announcer">
+		</div>
+		<Loader />
+		<a
+			href="#mainContent"
+			class="skip-link absolute -top-10 left-0 z-50 bg-black px-4 py-2 font-bold text-white focus:top-0"
+		>
+			Saltar al contenido
+		</a>
 		<Header />
-		<main>
-			<slot />
-		</main>
-		<Footer />
+		<div id="overlay">
+			<main
+				id="mainContent"
+				class="max-w-main m-auto px-3.5 sm:px-12.5 md:px-37.5"
+			>
+				<slot />
+				<SocialMedia />
+			</main>
+			<Footer />
+		</div>
+
+		<script is:inline>
+			const announcer = document.getElementById('announcer');
+			const observer = new MutationObserver(() => {
+				const message = announcer?.getAttribute('data-announce');
+				if (message) {
+					announcer.textContent = message;
+					setTimeout(() => {
+						announcer.textContent = '';
+					}, 1000);
+				}
+			});
+			observer.observe(announcer, {
+				attributes: true,
+				attributeFilter: ['data-announce'],
+			});
+		</script>
+		<script is:inline>
+			window.addEventListener('load', () => {
+				const alreadyVisit = localStorage.getItem('alreadyVisit');
+
+				const loader = document.getElementById('loader');
+				const overlay = document.getElementById('overlay');
+
+				if (!loader || !overlay) return;
+
+				function triggerAnimations() {
+					document.body.classList.add('loaded');
+				}
+
+				if (!alreadyVisit) {
+					setTimeout(() => {
+						loader.style.opacity = '0';
+						loader.style.transition = 'opacity 0.5s';
+						setTimeout(() => {
+							loader.remove();
+							overlay.classList.remove('hidden');
+							triggerAnimations();
+						}, 500);
+						localStorage.setItem('alreadyVisit', 'true');
+					}, 3000);
+				} else {
+					loader.remove();
+					overlay.classList.remove('hidden');
+					requestAnimationFrame(() => triggerAnimations());
+				}
+			});
+		</script>
 	</body>
 </html>
+<style>
+	.skip-link {
+		transition: top 0.3s ease-in-out;
+	}
+
+	.skip-link:focus {
+		top: 0;
+		background-color: #38ffa9;
+		color: #000;
+	}
+	.blur-effect {
+		filter: blur(5px);
+		position: relative;
+		z-index: -1;
+		position: fixed;
+	}
+</style>

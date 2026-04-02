@@ -7,6 +7,32 @@ export default {
 		'stylelint-config-clean-order',
 	],
 	rules: {
+		'at-rule-no-unknown': [
+			true,
+			{
+				ignoreAtRules: [
+					'theme',
+					'tailwind',
+					'apply',
+					'variants',
+					'responsive',
+					'screen',
+				],
+			},
+		],
+		'scss/at-rule-no-unknown': [
+			true,
+			{
+				ignoreAtRules: [
+					'theme',
+					'tailwind',
+					'apply',
+					'variants',
+					'responsive',
+					'screen',
+				],
+			},
+		],
 		'color-named': 'never',
 		/* 💡 Buenas prácticas */
 		'no-empty-source': true,
