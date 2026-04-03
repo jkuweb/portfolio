@@ -1,30 +1,19 @@
 @import 'tailwindcss';
 
 @theme {
-	/* PRIMARY COLORS */
 	--navy: oklch(22% 0.05 255deg);
 	--light-navy: oklch(27% 0.06 255deg);
 	--lightest-navy: oklch(35% 0.07 255deg);
-
-	/* APP COLORS */
 	--color-primary: var(--navy);
 	--color-secondary: oklch(85% 0.18 160deg);
 	--color-accent: oklch(65% 0.25 25deg);
 	--color-slate: oklch(66.24% 0.046 270.63deg);
 	--color-lightest-slate: oklch(87.86% 0.046 271.71deg);
-
-	/* MOTION */
 	--smooth-animation: 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-
-	/* HEIGHT */
 	--height-header: 10vh;
 	--height-footer: 10vh;
-
-	/* MAX-WIDTH */
 	--max-width-main: 1600px;
 	--max-width-section: 1000px;
-
-	/* FONT */
 	--font-primary: 'Inter Variable', sans-serif;
 	--font-secondary: 'Space Mono', monospace;
 	--font-size-base: 16px;

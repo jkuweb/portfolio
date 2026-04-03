@@ -9,7 +9,7 @@ const technologies = about.technologies;
 
 <section class="about py-15 sm:px-20 md:py-25" id="about">
 	<SectionTitle title={about.title} />
-	<div class="md:grid md:grid-cols-[3fr_2fr] md:gap-12.5">
+	<div class="lg:grid lg:grid-cols-[3fr_2fr] lg:gap-12.5">
 		<div>
 			<div class="about-content" set:html={formatInfo(about.textBio)} />
 			<ul class="technology-list mt-5">
@@ -52,12 +52,9 @@ const technologies = about.technologies;
 		width: 100%;
 		border-radius: 4px;
 		background-color: var(--color-secondary);
-		filter: grayscale(100%) contrast(1);
 		& > img {
 			position: relative;
 			border-radius: 4px;
-			filter: grayscale(100%) contrast(1);
-			mix-blend-mode: multiply;
 		}
 		&::before {
 			content: '';
@@ -78,6 +75,24 @@ const technologies = about.technologies;
 			top: 14px;
 			left: 14px;
 			z-index: -1;
+		}
+	}
+
+	@media screen and (min-width: 46rem) {
+		.about-image {
+			background-color: var(--color-secondary);
+			&:hover {
+				mix-blend-mode: normal;
+			}
+			& > img {
+				transition: all 0.3s ease-in-out;
+				filter: grayscale(100%) contrast(1);
+				mix-blend-mode: multiply;
+			}
+			& > img:hover {
+				filter: none;
+				mix-blend-mode: normal;
+			}
 		}
 	}
 </style>
