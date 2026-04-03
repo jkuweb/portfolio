@@ -22,6 +22,8 @@ const postDate = new Date(post.date).toLocaleDateString('en-US', {
 	day: 'numeric',
 });
 
+const postDateISO = new Date(post.date).toISOString();
+
 //const postImage = `url(${post.image.url})`;
 
 const renderer = new marked.Renderer();
@@ -35,13 +37,50 @@ renderer.code = ({ text, lang }) => {
 const postContent = marked(post.content || '');
 
 marked.setOptions({ renderer });
+
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'Article',
+	headline: post.title,
+	description: post.summary,
+	image: post.image.url,
+	datePublished: postDateISO,
+	author: {
+		'@type': 'Person',
+		name: 'Joseba Querejeta',
+	},
+	publisher: {
+		'@type': 'Organization',
+		name: 'Joseba Querejeta',
+	},
+};
 ---
 
-<Layout>
+<Layout
+	title={post.title}
+	description={post.summary}
+	canonical={`/posts/${post.slug}`}
+	image={post.image.url}
+	type="article"
+	article={{
+		publishedTime: postDateISO,
+		author: 'Joseba Querejeta',
+	}}
+>
+	<script
+		type="application/ld+json"
+		set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')}
+	/>
 	<article>
 		<h1>{post.title}</h1>
 		<p><strong>Date:</strong> {postDate}</p>
-		<img src={post.image.url} alt={post.image.name} width="800" />
+		<img
+			src={post.image.url}
+			alt={post.image.name}
+			width="800"
+			height="450"
+			loading="lazy"
+		/>
 		<p><strong>Summary:</strong> {post.summary}</p>
 		<div>
 			<strong>Content:</strong>

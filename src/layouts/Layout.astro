@@ -7,20 +7,144 @@ import '@fontsource/space-mono/400.css';
 import '@fontsource/space-mono/700.css';
 import '@fontsource-variable/inter';
 import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+	canonical?: string;
+	image?: string;
+	type?: 'website' | 'article';
+	article?: {
+		publishedTime?: string;
+		modifiedTime?: string;
+		author?: string;
+	};
+}
+
+const {
+	title,
+	description = 'Portfolio personal de Joseba Querejeta - Desarrollador Web Full Stack especializado en React, Astro y TypeScript.',
+	canonical,
+	image = '/og-image.png',
+	type = 'website',
+	article,
+} = Astro.props;
+
+const siteTitle = title
+	? `${title} | Joseba Querejeta`
+	: 'Joseba Querejeta | Desarrollador Web Full Stack';
+const siteUrl = 'https://josebaquerejeta.dev';
+const currentUrl = canonical ? `${siteUrl}${canonical}` : Astro.url.href;
+const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
 ---
 
 <html lang="es">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
+
+		<title>{siteTitle}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={currentUrl} />
 		<meta
-			name="description"
-			content="Portfolio personal de Joseba Querejeta - Desarrollador Web"
+			name="robots"
+			content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
 		/>
+
+		<meta property="og:type" content={type} />
+		<meta property="og:site_name" content="Joseba Querejeta" />
+		<meta property="og:title" content={siteTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={currentUrl} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={siteTitle} />
+		<meta property="og:locale" content="es_ES" />
+
+		{
+			article?.publishedTime && (
+				<meta
+					property="article:published_time"
+					content={article.publishedTime}
+				/>
+			)
+		}
+		{
+			article?.modifiedTime && (
+				<meta property="article:modified_time" content={article.modifiedTime} />
+			)
+		}
+		{
+			article?.author && (
+				<meta property="article:author" content={article.author} />
+			)
+		}
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={siteTitle} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
+
+		<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png" />
+		<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png" />
+		<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png" />
+		<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png" />
+		<link
+			rel="apple-touch-icon"
+			sizes="114x114"
+			href="/apple-icon-114x114.png"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="120x120"
+			href="/apple-icon-120x120.png"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="144x144"
+			href="/apple-icon-144x144.png"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="152x152"
+			href="/apple-icon-152x152.png"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="/apple-icon-180x180.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="192x192"
+			href="/android-icon-192x192.png"
+		/>
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+		<link rel="manifest" href="/manifest.json" />
+		<meta name="msapplication-TileColor" content="#ffffff" />
+		<meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
 		<meta name="theme-color" content="#38ffa9" />
-		<title>Portfolio | Joseba Querejeta</title>
+
+		<script
+			type="application/ld+json"
+			set:html={JSON.stringify({
+				'@context': 'https://schema.org',
+				'@type': 'Person',
+				name: 'Joseba Querejeta',
+				url: siteUrl,
+				jobTitle: 'Desarrollador Web Full Stack',
+				sameAs: [
+					'https://github.com/josebaquerejeta',
+					'https://linkedin.com/in/josebaquerejeta',
+				],
+			}).replace(/</g, '\\u003c')}
+		/>
 	</head>
 	<body>
 		<div aria-live="polite" aria-atomic="true" class="sr-only" id="announcer">

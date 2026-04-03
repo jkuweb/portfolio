@@ -12,14 +12,18 @@ const date = (date: string) =>
 	});
 ---
 
-<Layout>
+<Layout
+	title="Blog"
+	description="Artículos sobre desarrollo web, tecnología y programación por Joseba Querejeta."
+	canonical="/posts"
+>
 	<h1>Blog</h1>
 	{
 		posts.map((post) => (
 			<>
-				<h1>{post.title}</h1>
+				<h2>{post.title}</h2>
 				<p>{date(post.date)}</p>
-				<a href={`/posts/${post.slug}`}>Link</a>
+				<a href={`/posts/${post.slug}`}>Leer más</a>
 			</>
 		))
 	}
