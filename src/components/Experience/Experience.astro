@@ -14,6 +14,7 @@ const empresas = experience.flatMap((exp) => exp.empresaData ?? []);
 		<div
 			class="tab-list md:border-lightest-navy relative flex w-full overflow-scroll overflow-x-visible border-b border-stone-200 md:h-full md:w-auto md:shrink-0 md:flex-col md:border-b-0 md:border-l md:pl-0"
 			role="tablist"
+			aria-label="Experiencia laboral"
 		>
 			{
 				empresas.map((empresa, index) => (
@@ -23,7 +24,12 @@ const empresas = experience.flatMap((exp) => exp.empresaData ?? []);
 								? 'text-secondary md:border-secondary font-medium md:border-l-2 md:pl-4.5'
 								: 'text-slate hover:text-slate-light'
 						}`}
-						data-dui-tab-target={`tab-${index}`}
+						role="tab"
+						id={`tab-btn-${index}`}
+						aria-selected={index === 0 ? 'true' : 'false'}
+						aria-controls={`tab-panel-${index}`}
+						tabindex={index === 0 ? 0 : -1}
+						data-dui-tab-target={`tab-panel-${index}`}
 					>
 						{empresa.name}
 					</button>
@@ -36,7 +42,9 @@ const empresas = experience.flatMap((exp) => exp.empresaData ?? []);
 			{
 				empresas.map((empresa, index) => (
 					<div
-						id={`tab-${index}`}
+						id={`tab-panel-${index}`}
+						role="tabpanel"
+						aria-labelledby={`tab-btn-${index}`}
 						class={`tab-content text-slate text-base ${index === 0 ? 'block' : 'hidden'}`}
 					>
 						<h4 class="text-slate text-xl font-medium">
@@ -89,7 +97,7 @@ const empresas = experience.flatMap((exp) => exp.empresaData ?? []);
 
 <script>
 	document.querySelectorAll('.tab-group').forEach((group) => {
-		const tabs = group.querySelectorAll('.tab-link');
+		const tabs = group.querySelectorAll<HTMLButtonElement>('.tab-link');
 		const contents = group.querySelectorAll('.tab-content');
 
 		const isMobile = () => window.innerWidth < 768;
@@ -107,6 +115,8 @@ const empresas = experience.flatMap((exp) => exp.empresaData ?? []);
 						'md:border-secondary',
 						'md:pl-[18px]',
 					);
+					t.setAttribute('aria-selected', 'false');
+					t.setAttribute('tabindex', '-1');
 				});
 
 				contents.forEach((c) => {
@@ -116,6 +126,8 @@ const empresas = experience.flatMap((exp) => exp.empresaData ?? []);
 
 				tab.classList.add('text-secondary', 'font-medium');
 				tab.classList.remove('text-slate');
+				tab.setAttribute('aria-selected', 'true');
+				tab.setAttribute('tabindex', '0');
 				if (!mobile) {
 					tab.classList.add(
 						'md:border-l-2',
@@ -130,10 +142,31 @@ const empresas = experience.flatMap((exp) => exp.empresaData ?? []);
 					targetContent.classList.add('block');
 				}
 			});
+
+			tab.addEventListener('keydown', (e) => {
+				const tabArray = Array.from(tabs);
+				const currentIndex = tabArray.indexOf(tab);
+				let newIndex: number | null = null;
+
+				if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+					e.preventDefault();
+					newIndex = currentIndex < tabArray.length - 1 ? currentIndex + 1 : 0;
+				} else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+					e.preventDefault();
+					newIndex = currentIndex > 0 ? currentIndex - 1 : tabArray.length - 1;
+				}
+
+				if (newIndex !== null) {
+					tabArray[newIndex]?.click();
+					tabArray[newIndex]?.focus();
+				}
+			});
 		});
 
 		window.addEventListener('resize', () => {
-			const activeTab = group.querySelector('.tab-link.text-secondary');
+			const activeTab = group.querySelector<HTMLButtonElement>(
+				'.tab-link[aria-selected="true"]',
+			);
 			if (activeTab) {
 				const mobile = isMobile();
 				activeTab.classList.toggle('md:border-l-2', !mobile);

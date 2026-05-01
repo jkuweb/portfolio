@@ -26,9 +26,12 @@ const styleWithSvg = hasSvg ? '!flex items-center gap-2' : undefined;
 	a {
 		transition: var(--smooth-animation);
 		&:hover {
-			outline: none;
 			box-shadow: 3px 3px 0 0 var(--color-secondary);
 			transform: translate(-4px, -4px);
+		}
+		&:focus-visible {
+			outline: 2px solid var(--color-secondary);
+			outline-offset: 3px;
 		}
 	}
 </style>

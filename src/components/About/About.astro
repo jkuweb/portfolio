@@ -24,7 +24,14 @@ const technologies = about.technologies;
 			</ul>
 		</div>
 		<div class="about-image my-12.5 max-w-75 md:my-0 md:self-start">
-			<img src={about.picture.url} alt={about.picture.name} />
+			<img
+				src={about.picture.url}
+				alt={about.picture.name}
+				loading="lazy"
+				decoding="async"
+				width="200"
+				height="200"
+			/>
 		</div>
 	</div>
 </section>

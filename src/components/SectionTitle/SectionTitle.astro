@@ -6,11 +6,11 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<h3 class="relative mt-2.5 mb-10 grid grid-cols-[auto_1fr_2fr] items-center">
+<h2 class="relative mt-2.5 mb-10 grid grid-cols-[auto_1fr_2fr] items-center">
 	{title}
-</h3>
+</h2>
 <style>
-	h3 {
+	h2 {
 		counter-increment: section 1;
 		font-size: clamp(26px, 5vw, 32px);
 		white-space: nowrap;
