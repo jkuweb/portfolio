@@ -44,11 +44,13 @@ const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<style>
-			#overlay {
+			#overlay,
+			.skip-link {
 				visibility: hidden;
 			}
 
-			#overlay.visible {
+			body.ready #overlay,
+			body.ready .skip-link {
 				visibility: visible;
 			}
 		</style>
@@ -179,7 +181,7 @@ const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
 				if (!loader || !overlay) return;
 
 				function triggerAnimations() {
-					document.body.classList.add('loaded');
+					document.body.classList.add('loaded', 'ready');
 				}
 
 				if (!alreadyVisit) {
@@ -188,15 +190,13 @@ const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
 						loader.style.transition = 'opacity 0.5s';
 						setTimeout(() => {
 							loader.remove();
-							overlay.classList.add('visible');
 							triggerAnimations();
 						}, 500);
 						localStorage.setItem('alreadyVisit', 'true');
 					}, 3000);
 				} else {
 					loader.remove();
-					overlay.classList.add('visible');
-					requestAnimationFrame(() => triggerAnimations());
+					triggerAnimations();
 				}
 
 				const sections = document.querySelectorAll(
