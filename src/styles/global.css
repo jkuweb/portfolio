@@ -139,6 +139,15 @@ p {
 	}
 }
 
+/* LOADING STATE - Prevent FOUC */
+#overlay {
+	visibility: hidden;
+}
+
+#overlay.visible {
+	visibility: visible;
+}
+
 /* SCROLL-TRIGGERED SECTION ANIMATIONS */
 .about,
 #contact,

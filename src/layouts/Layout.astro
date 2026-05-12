@@ -161,7 +161,7 @@ const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
 			});
 		</script>
 		<script is:inline>
-			window.addEventListener('load', () => {
+			document.addEventListener('DOMContentLoaded', () => {
 				const alreadyVisit = localStorage.getItem('alreadyVisit');
 
 				const loader = document.getElementById('loader');
@@ -179,14 +179,14 @@ const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
 						loader.style.transition = 'opacity 0.5s';
 						setTimeout(() => {
 							loader.remove();
-							overlay.classList.remove('hidden');
+							overlay.classList.add('visible');
 							triggerAnimations();
 						}, 500);
 						localStorage.setItem('alreadyVisit', 'true');
 					}, 3000);
 				} else {
 					loader.remove();
-					overlay.classList.remove('hidden');
+					overlay.classList.add('visible');
 					requestAnimationFrame(() => triggerAnimations());
 				}
 
